@@ -3,11 +3,10 @@
     <!-- side navbar -->
     <v-navigation-drawer app temporary fixed v-model="sideNav">
       <v-toolbar color="accent" dark flat>
-        <v-toolbar-nav-icon @click="toggleSideNav">
-          <router-link to="/" tag="span" style="curser: pointer">
-            <h1 class="title pl-3">Vue Share</h1>
-          </router-link>
-        </v-toolbar-nav-icon>
+        <v-app-bar-nav-icon @click="toggleSideNav"> </v-app-bar-nav-icon>
+        <router-link to="/" tag="span" style="curser: pointer">
+          <h1 class="title pl-3">Vue Share</h1>
+        </router-link>
       </v-toolbar>
 
       <v-divider></v-divider>
@@ -64,7 +63,9 @@
     <!-- app content -->
     <main>
       <v-container class="md-4">
-        <router-view />
+        <transition name="fade">
+          <router-view />
+        </transition>
       </v-container>
     </main>
   </v-app>
@@ -80,7 +81,7 @@ export default {
   computed: {
     horizontalNavItems() {
       return [
-        { icon: "mdi-chat", title: "Post", link: "/post" },
+        { icon: "mdi-chat", title: "Posts", link: "/posts" },
         { icon: "mdi-lock-open", title: "Sign In", link: "/signin" },
         { icon: "mdi-pen", title: "Sign Up", link: "/signup" }
       ];
@@ -100,3 +101,21 @@ export default {
   }
 };
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: all;
+  transition-duration: 0.25s;
+}
+
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+  transform: translateX(-25px);
+}
+</style>
